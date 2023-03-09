@@ -216,7 +216,7 @@ Outras representações de números inteiros são:
 ```
 
 ### Ponto Flutuante
-Uma literual numérica com um ponto decimal é um número de ponto flutuante. Por exemplo:
+Uma literal numérica com um ponto decimal é um número de ponto flutuante. Por exemplo:
 
 ```ruby
 a = 1.0
@@ -428,7 +428,7 @@ def hello(name = "World")
 end
 ```
 
-### Lista de Argumentos de Tamamho Variável
+### Lista de Argumentos de Tamanho Variável
 
 Os parâmetros de um método podem ser definidos como lista de argumentos de tamanho variável. Quando um método é chamado, os argumentos de tamanho variável devem ser passados como uma lista de argumentos.
 
@@ -446,9 +446,3 @@ Dessa forma podemos chamar o método `hello` passando uma lista de argumentos ou
 hello("Alice", "Bob", "Carol")
 hello(["Alice", "Bob", "Carol"])
 ```
-
-
-
-
-
-
