@@ -446,3 +446,17 @@ Dessa forma podemos chamar o método `hello` passando uma lista de argumentos ou
 hello("Alice", "Bob", "Carol")
 hello(["Alice", "Bob", "Carol"])
 ```
+
+## Exercícios
+
+1. Escreva um método que recebe um número inteiro e retorna o seu fatorial.
+
+2. Escreva um método que recebe uma string e retorna se a string é um palíndromo.
+
+3. Escreva um método que recebe uma lista de números inteiros e retorna a frequência de cada número.
+
+4. Escreva um método que recebe uma lista de números inteiros e retorna a média aritmética dos números.
+
+
+
+
