@@ -1,0 +1,62 @@
+classDiagram
+
+    Campeonato "1"-->"*" Time
+    Campeonato "1"-->"*" Rodada
+    Partida "1"-->"1" Time
+    Partida "1"-->"1" Time
+    Rodada "1"-->"*" Partida
+    Apostador "1"-->"*" Aposta
+    Aposta "1"-->"1" Partida
+    Partida "1"-->"*" Aposta
+    ItemClassificacao "1"--"1" Time
+    Bolao "1"--"*" Aposta
+    ItemRanking "1"--"1" Apostador
+    
+    class ItemRanking {
+        integer:pontos
+        integer:placares_exatos
+    }
+
+    class ItemClassificacao {
+        integer:pontos
+        integer:gols_feitos
+        integer:gols_sofridos
+        integer:numero_de_vitorias
+        integer:numero_de_derrotas
+        integer:numero_de_empates
+    }
+    
+    class Campeonato{
+        +integer:edicao
+        ItemClassificacao[] classificacao()
+    }
+
+    class Time{
+        +string:nome
+        +string:sigla
+    }
+
+    class Partida{
+        +integer:gols_mandante
+        +integer:gols_visitante
+    }
+
+    class Rodada {
+        +integer:numero
+    }
+
+    class Aposta {
+        +integer:gols_mandante
+        +integer:gols_visitante        
+    }
+
+    class Apostador {        
+        +string:nome
+        integer pontuacao()
+    }
+
+    class Bolao {
+        ItemRanking[] ranking()
+    }
+
+    
