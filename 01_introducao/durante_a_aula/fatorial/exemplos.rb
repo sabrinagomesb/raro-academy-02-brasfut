@@ -8,5 +8,12 @@ def palindrome?(texto)
 end
 
 def contar_frequencia(lista)
-  lista.tally
+  freq = {}
+  lista.each do |e|
+    freq[e] ||= 0
+    freq[e] = freq[e] + 1
+
+    puts freq.inspect
+  end
+  return freq
 end
