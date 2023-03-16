@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# Specify your gem's dependencies in bolao.gemspec
+gemspec
+
+gem "rake", "~> 13.0"
+
+gem "rspec", "~> 3.0"
+
+gem "rubocop", "~> 1.21"
+
+gem "activemodel", "~> 7.0"
+
+gem "factory_bot", "~> 6.2"
+
+gem "faker", "~> 3.1"
+
+gem "activesupport", "~> 7.0"
+
+gem "round_robin_tournament"
