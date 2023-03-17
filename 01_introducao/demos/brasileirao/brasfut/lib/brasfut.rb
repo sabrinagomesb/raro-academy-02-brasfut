@@ -5,6 +5,11 @@ require_relative "brasfut/version"
 require "brasfut/entidades/campeonato"
 require "brasfut/entidades/equipe"
 require "brasfut/entidades/classificacao"
+require "brasfut/entidades/partida"
+
+require "simplecov"
+require "byebug"
+SimpleCov.start
 
 module Brasfut
   class Error < StandardError; end
