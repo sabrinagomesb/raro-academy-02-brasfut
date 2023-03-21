@@ -17,20 +17,48 @@ class Campeonato
   end
 
   def criar_tabela!
-    puts "oi"
-    # equipes >> jogos  >> rodadas
-    # 4 - 3 rodadas ida
-    # 4 - 3 rodadas volta
-    # 4 - 6 rodadas
-    # rodada - quant timmmmmmmmmmmmmme / 2
-    # 4 - 2 jogos por rodadas
-    # partidasssss = rodadas x jogos por rodadas
-    # 4 - 12
+    # reseta atributos
+    @partidas = []
+    @rodadas_turno = []
+    @rodadas_returno = []
 
-    ## Implementar a geracao automatica da tabela
-    ## considerando que todos os times devem
-    ## jogar entre sí em turno e returno
-    ## uma vez como mandante e outra como visitante
+    times = @equipes.dup
+
+    # adiciona um time reserva se o número de times por impar
+    times << Equipe.new("Reserva", "RES") if times.size.odd?
+
+    # quantidade de rodadas = quantidade de times - 1
+    numero_rodadas = times.size - 1
+
+    # gera as rodadas de ida e volta
+    (1..numero_rodadas).each do |rodada|
+      rodada_turno = Rodada.new(rodada)
+      rodada_returno = Rodada.new(numero_rodadas + rodada)
+
+      rodada_turno.partidas = []
+      rodada_returno.partidas = []
+
+      # gera as partidas das rodadas de ida e volta
+      partidas_por_rodada = times.size / 2
+
+      (0..partidas_por_rodada - 1).each do |i|
+        mandante = times[i]
+        visitante = times[times.size - 1 - i]
+
+        partida_turno = Partida.new(mandante, visitante)
+        partida_returno = Partida.new(visitante, mandante)
+
+        # armazena jogos
+        rodada_turno.partidas << partida_turno
+        rodada_returno.partidas << partida_returno
+        @partidas << partida_turno << partida_returno
+      end
+
+      @rodadas_turno << rodada_turno
+      @rodadas_returno << rodada_returno
+
+      times.insert(1, times.pop)
+    end
   end
 
   def imprimir_tabela
