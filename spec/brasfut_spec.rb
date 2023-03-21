@@ -46,7 +46,7 @@ RSpec.describe Brasfut do
       end
     end
 
-    it "Deve incluir time reserva quando o número de equipes for ímpar" do
+    it "Deve incluir time reserva na tabela quando o número de equipes for ímpar" do
       novo_campeonato = Campeonato.new(2024)
       bahia = Equipe.new("Bahia", "BAH")
       novo_campeonato.equipes << bahia
