@@ -6,6 +6,7 @@ require "brasfut/entidades/campeonato"
 require "brasfut/entidades/equipe"
 require "brasfut/entidades/classificacao"
 require "brasfut/entidades/partida"
+require "brasfut/entidades/rodada"
 
 require "simplecov"
 require "byebug"

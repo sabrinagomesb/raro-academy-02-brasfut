@@ -1,10 +1,13 @@
 class Campeonato
-  attr_accessor :edicao, :equipes, :partidas
+  attr_accessor :edicao, :equipes, :partidas,
+                :rodadas_turno, :rodadas_returno
 
   def initialize(edicao)
     @edicao = edicao
     @equipes = []
     @partidas = []
+    @rodadas_turno = []
+    @rodadas_returno = []
   end
 
   def classificacao
@@ -14,6 +17,16 @@ class Campeonato
   end
 
   def criar_tabela!
+    puts "oi"
+    # equipes >> jogos  >> rodadas
+    # 4 - 3 rodadas ida
+    # 4 - 3 rodadas volta
+    # 4 - 6 rodadas
+    # rodada - quant timmmmmmmmmmmmmme / 2
+    # 4 - 2 jogos por rodadas
+    # partidasssss = rodadas x jogos por rodadas
+    # 4 - 12
+
     ## Implementar a geracao automatica da tabela
     ## considerando que todos os times devem
     ## jogar entre sí em turno e returno
