@@ -6,11 +6,12 @@ RSpec.describe Brasfut do
   describe "Campeonato" do
     before(:all) do
       @campeonato = Campeonato.new(2023)
-      @cam = Equipe.new("Atlético-MG", "CAM")
       @vas = Equipe.new("Vasco", "VAS")
+      @cam = Equipe.new("Atlético-MG", "CAM")
       @cru = Equipe.new("Cruzeiro", "CRU")
       @for = Equipe.new("Fortaleza", "FOR")
       @campeonato.equipes = [@vas, @cam, @cru, @for]
+      @campeonato.criar_tabela!
     end
 
     it "Deve ser a edição 2023" do
@@ -43,6 +44,15 @@ RSpec.describe Brasfut do
       @campeonato.equipes.each do |equipe|
         expect(equipe.classificacao.pontos).to eq(0)
       end
+    end
+
+    it "Deve incluir time reserva quando o número de equipes for ímpar" do
+      novo_campeonato = Campeonato.new(2024)
+      bahia = Equipe.new("Bahia", "BAH")
+      novo_campeonato.equipes << bahia
+      novo_campeonato.criar_tabela!
+
+      expect(novo_campeonato.partidas[0].visitante.nome).to eq("Reserva")
     end
   end
 
