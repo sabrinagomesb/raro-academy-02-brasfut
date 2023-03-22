@@ -54,6 +54,13 @@ RSpec.describe Brasfut do
 
       expect(novo_campeonato.partidas[0].visitante.nome).to eq("Reserva")
     end
+
+    it "Deve imprimir tabela de jogos" do
+      tabela = "\nRODADA 1\n------------------------\nVAS X FOR\nCAM X CRU\n\nRODADA 2\n------------------------\nVAS X CRU\nFOR X CAM\n\nRODADA 3\n------------------------\nVAS X CAM\nCRU X FOR\n\nRODADA 4\n------------------------\nFOR X VAS\nCRU X CAM\n\nRODADA 5\n------------------------\nCRU X VAS\nCAM X FOR\n\nRODADA 6\n------------------------\nCAM X VAS\nFOR X CRU\n"
+
+      expect(@campeonato.imprimir_tabela).to eq(tabela)
+    end
+
   end
 
   describe "Pontuação" do

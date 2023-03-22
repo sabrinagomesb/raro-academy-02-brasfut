@@ -62,17 +62,18 @@ class Campeonato
   end
 
   def imprimir_tabela
-    ## Implementar um metodo que retorne uma string
-    ## representando a tabela de jogos no seguinte formato
-    ## RODADA <numero da rodada>
-    ## ------------------------
-    ## CAM X CRU
-    ## VAS X FOR
-    ##
-    ## RODADA <numero da rodada>
-    ## ------------------------
-    ## CAM X CRU
-    ## VAS X FOR
+    rodadas_total = @rodadas_turno + @rodadas_returno
+    tabela = ""
+
+    rodadas_total.each do |rodada|
+      tabela += "\nRODADA #{rodada.numero}\n------------------------\n"
+      rodada.partidas.each do |partida|
+        tabela += "#{partida.mandante.sigla} X #{partida.visitante.sigla}\n"
+      end
+    end
+
+    puts tabela
+    tabela
   end
 
   def imprimir_classificao
