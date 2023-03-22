@@ -40,9 +40,25 @@ RSpec.describe Brasfut do
       expect(@campeonato.partidas.size).to eq(12)
     end
 
-    it "Todos os times devem ter zero pontos" do
+    it "Todos os times devem começar com zero pontos" do
       @campeonato.equipes.each do |equipe|
         expect(equipe.classificacao.pontos).to eq(0)
+      end
+    end
+
+    it "Todos os times devem começar com 0 vitórias, 0 derrotas e 0 empates" do
+      @campeonato.equipes.each do |equipe|
+        expect(equipe.classificacao.vitorias).to eq(0)
+        expect(equipe.classificacao.derrotas).to eq(0)
+        expect(equipe.classificacao.empates).to eq(0)
+      end
+    end
+
+    it "Todos os times devem começar com 0 gols" do
+      @campeonato.equipes.each do |equipe|
+        expect(equipe.classificacao.gols_pro).to eq(0)
+        expect(equipe.classificacao.gols_contra).to eq(0)
+        expect(equipe.classificacao.saldo_gols).to eq(0)
       end
     end
 
@@ -60,7 +76,35 @@ RSpec.describe Brasfut do
 
       expect(@campeonato.imprimir_tabela).to eq(tabela)
     end
+  end
 
+  describe "Saldo de gols" do
+    before(:all) do
+      @campeonato = Campeonato.new(2023)
+      @cru = Equipe.new("Cruzeiro", "CRU")
+      @for = Equipe.new("Fortaleza", "FOR")
+      @campeonato.equipes = [@cru, @for]
+      @cru.partidas = []
+      @for.partidas = []
+      partida = Partida.new(@cru, @for)
+      partida.gols_mandante = 1
+      partida.gols_visitante = 3
+    end
+    #   ## acrescentar mais uma partida e testar
+    it "Fortaleza deve acumular 3 gols feitos" do
+      classficacao = @for.classificacao
+      expect(classficacao.gols_pro).to eq(3)
+    end
+
+    it "Fortaleza deve acumular 1 gol sofrido" do
+      classficacao = @for.classificacao
+      expect(classficacao.gols_contra).to eq(1)
+    end
+
+    it "Fortaleza deve ter 2 gols de saldo" do
+      classficacao = @for.classificacao
+      expect(classficacao.saldo_gols).to eq(2)
+    end
   end
 
   describe "Pontuação" do
@@ -100,6 +144,38 @@ RSpec.describe Brasfut do
       partida.gols_visitante = 1
       expect(@cru.classificacao.pontos).to eq(0)
       expect(@cam.classificacao.pontos).to eq(3)
+    end
+  end
+
+  describe "Resultados acumulados" do
+    before(:all) do
+      @campeonato = Campeonato.new(2023)
+      @cru = Equipe.new("Cruzeiro", "CRU")
+      @for = Equipe.new("Fortaleza", "FOR")
+      @campeonato.equipes = [@cru, @for]
+      @cru.partidas = []
+      @for.partidas = []
+      partida1 = Partida.new(@cru, @for)
+      partida2 = Partida.new(@for, @cru)
+      partida1.gols_mandante = 1
+      partida1.gols_visitante = 3
+      partida2.gols_mandante = 2
+      partida2.gols_visitante = 2
+    end
+
+    it "Fortaleza deve acumular 1 vitoria" do
+      classficacao = @for.classificacao
+      expect(classficacao.vitorias).to eq(1)
+    end
+
+    it "Fortaleza deve acumular 1 empate" do
+      classficacao = @for.classificacao
+      expect(classficacao.empates).to eq(1)
+    end
+
+    it "Cruzeiro deve acumular 1 derrota" do
+      classficacao = @cru.classificacao
+      expect(classficacao.derrotas).to eq(1)
     end
   end
 
