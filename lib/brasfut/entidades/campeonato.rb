@@ -11,9 +11,19 @@ class Campeonato
   end
 
   def classificacao
-    @equipes.map do |equipe|
+    classificacao = @equipes.map do |equipe|
       equipe.classificacao
-    end.sort { |x, y| y.pontos <=> x.pontos }
+    end
+
+    classificacao.sort do |x, y|
+      if y.pontos != x.pontos
+        y.pontos <=> x.pontos
+      elsif y.vitorias != x.vitorias
+        y.vitorias <=> x.vitorias
+      else
+        y.saldo_gols <=> x.saldo_gols
+      end
+    end
   end
 
   def criar_tabela!
@@ -76,18 +86,15 @@ class Campeonato
     tabela
   end
 
-  def imprimir_classificao
-    ## estrutura string
-    ## definir pontuação para saldo de gols
-    ## definir função para calcular gols pro e gols contra
-    ## saldo de gols : soma gols_mandantes - gols_visitante
+  def imprimir_classificacao
+    cabecalho = "| # | Sigla | Time            | Pontos | Vitorias | Empates | Derrotas | Saldo de Gols | Gols Pro | Gols Contra |\n"
+    divisoria = "|---|-------|-----------------|--------|----------|---------|----------|---------------|----------|-------------|\n"
+    dados = self.classificacao.map.with_index do |classificacao, index|
+      "| #{index + 1} |  #{classificacao.equipe.sigla}  | #{classificacao.equipe.nome.ljust(15)} | #{classificacao.pontos.to_s.ljust(6)} | #{classificacao.vitorias.to_s.ljust(8)} | #{classificacao.empates.to_s.ljust(7)} | #{classificacao.derrotas.to_s.ljust(8)} | #{classificacao.saldo_gols.to_s.ljust(13)} | #{classificacao.gols_pro.to_s.ljust(8)} | #{classificacao.gols_contra.to_s.ljust(11)} |\n"
+    end
 
-    ## Implementar um metodo que retorno uma string
-    ## representando a classificacao dos times no seguinte formato
-    ## | # | Sigla | Time        | Pontos | Vitorias | Empates | Derrotas | Saldo de Gols | Gols Pro | Gols Contra |
-    ## |---|-------|-------------|--------|----------|---------|----------|---------------|----------|-------------|
-    ## | 1 | CAM   | Atletico-MG | 18     | 3        | 1       | 0        | 20            | 22       | 2           |
-    ## | 2 | VAS   | Vasco       | 12     | 1        | 3       | 2        | -4            | 4        | 8           |
-    ## Modifique o projeto para ter as informações necessárias para a geração da tabela
+    tabela = cabecalho + divisoria + dados.join + divisoria
+    puts tabela
+    tabela
   end
 end
