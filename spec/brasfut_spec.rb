@@ -253,5 +253,78 @@ RSpec.describe Brasfut do
 
       expect(@camp.imprimir_classificacao).to eq(tabela)
     end
+
+    it "Deve desampatar por quantidade de vitórias" do
+      camp = Campeonato.new(2022)
+      bah = Equipe.new("Bahia", "BAH")
+      fla = Equipe.new("Flamengo", "FLA")
+      pam = Equipe.new("Palmeiras", "PAM")
+      bgo = Equipe.new("Botafogo", "BFO")
+      camp.equipes = [bah, fla, pam, bgo]
+
+      partida1 = Partida.new(bah, fla)
+      partida1.gols_mandante = 3
+      partida1.gols_visitante = 1
+      partida2 = Partida.new(fla, pam)
+      partida2.gols_mandante = 1
+      partida2.gols_visitante = 1
+      partida3 = Partida.new(fla, bgo)
+      partida3.gols_mandante = 1
+      partida3.gols_visitante = 1
+      partida4 = Partida.new(fla, pam)
+      partida4.gols_mandante = 1
+      partida4.gols_visitante = 1
+
+      classificacao = camp.classificacao
+      expect(classificacao[0].equipe).to eq(bah)
+      expect(classificacao[1].equipe).to eq(fla)
+    end
+
+    it "Deve desampatar por saldo de gols" do
+      camp = Campeonato.new(2022)
+      bah = Equipe.new("Bahia", "BAH")
+      fla = Equipe.new("Flamengo", "FLA")
+      pam = Equipe.new("Palmeiras", "PAM")
+      bgo = Equipe.new("Botafogo", "BFO")
+      camp.equipes = [bah, fla, pam, bgo]
+
+      partida1 = Partida.new(bah, fla)
+      partida1.gols_mandante = 3
+      partida1.gols_visitante = 1
+      partida2 = Partida.new(fla, pam)
+      partida2.gols_mandante = 2
+      partida2.gols_visitante = 1
+
+      classificacao = camp.classificacao
+      expect(classificacao[0].equipe).to eq(bah)
+      expect(classificacao[1].equipe).to eq(fla)
+    end
+
+    it "Deve desampatar por quantidade de gols feitos" do
+      camp = Campeonato.new(2022)
+      bah = Equipe.new("Bahia", "BAH")
+      fla = Equipe.new("Flamengo", "FLA")
+      pam = Equipe.new("Palmeiras", "PAM")
+      bgo = Equipe.new("Botafogo", "BFO")
+      camp.equipes = [bah, fla, pam, bgo]
+
+      partida1 = Partida.new(bah, pam)
+      partida1.gols_mandante = 3
+      partida1.gols_visitante = 1
+      partida1 = Partida.new(bah, bgo)
+      partida1.gols_mandante = 3
+      partida1.gols_visitante = 1
+      partida2 = Partida.new(fla, pam)
+      partida2.gols_mandante = 3
+      partida2.gols_visitante = 1
+      partida2 = Partida.new(fla, bgo)
+      partida2.gols_mandante = 2
+      partida2.gols_visitante = 0
+
+      classificacao = camp.classificacao
+      camp.imprimir_classificacao
+      expect(classificacao[0].equipe).to eq(bah)
+      expect(classificacao[1].equipe).to eq(fla)
+    end
   end
 end

@@ -20,8 +20,10 @@ class Campeonato
         y.pontos <=> x.pontos
       elsif y.vitorias != x.vitorias
         y.vitorias <=> x.vitorias
-      else
+      elsif y.saldo_gols != x.saldo_gols
         y.saldo_gols <=> x.saldo_gols
+      else
+        y.gols_pro <=> x.gols_pro
       end
     end
   end
