@@ -6,7 +6,7 @@ O projeto de estudo consiste em criar uma aplicação em ruby que gera uma tabel
 
 **ENUNCIADO**: Completar os seguintes métodos
 
-- [x] criar_rodadas!
+- [x] criar_tabela!
 
 Implementar a geração automática da tabela
 considerando que todos os times devem
@@ -16,7 +16,8 @@ uma vez como mandante e outra como visitante
 - [x] imprimir_tabela
 
 Implementar um método que retorne uma string
-representando a tabela de jogos no seguinte formato
+representando a tabela de jogos no seguinte formato:
+
 RODADA < numero da rodada >
 
 CAM X CRU
@@ -29,7 +30,7 @@ VAS X FOR
 
 - [x] imprimir_classificacao
 
-Implementar um método que retorno uma string
+Implementar um método que retorna uma string
 representando a classificação dos times no seguinte formato
 | # | Sigla | Time | Pontos | Vitorias | Empates | Derrotas | Saldo de Gols | Gols Pro | Gols Contra |
 |---|-------|-------------|--------|----------|---------|----------|---------------|----------|-------------|
