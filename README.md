@@ -35,6 +35,7 @@ representando a classificação dos times no seguinte formato
 |---|-------|-------------|--------|----------|---------|----------|---------------|----------|-------------|
 | 1 | CAM | Atlético-MG | 18 | 3 | 1 | 0 | 20 | 22 | 2 |
 | 2 | VAS | Vasco | 12 | 1 | 3 | 2 | -4 | 4 | 8 |
+
 Modifique o projeto para ter as informações necessárias para a geração da tabela
 
 ### Diagrama

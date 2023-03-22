@@ -178,4 +178,80 @@ RSpec.describe Brasfut do
       expect(classficacao.derrotas).to eq(1)
     end
   end
+
+  describe "Classificação" do
+    before(:all) do
+      @camp = Campeonato.new(2022)
+      @bah = Equipe.new("Bahia", "BAH")
+      @fla = Equipe.new("Flamengo", "FLA")
+      @pam = Equipe.new("Palmeiras", "PAM")
+      @bgo = Equipe.new("Botafogo", "BFO")
+      @camp.equipes = [@bah, @fla, @pam, @bgo]
+
+      partida1 = Partida.new(@bah, @fla)
+      partida1.gols_mandante = 3
+      partida1.gols_visitante = 1
+      partida2 = Partida.new(@fla, @bah)
+      partida2.gols_mandante = 2
+      partida2.gols_visitante = 5
+
+      partida3 = Partida.new(@bah, @pam)
+      partida3.gols_mandante = 2
+      partida3.gols_visitante = 1
+      partida4 = Partida.new(@pam, @bah)
+      partida4.gols_mandante = 1
+      partida4.gols_visitante = 1
+
+      partida5 = Partida.new(@bah, @bgo)
+      partida5.gols_mandante = 1
+      partida5.gols_visitante = 0
+      partida6 = Partida.new(@bgo, @bah)
+      partida6.gols_mandante = 3
+      partida6.gols_visitante = 1
+
+      partida7 = Partida.new(@fla, @pam)
+      partida7.gols_mandante = 1
+      partida7.gols_visitante = 0
+      partida8 = Partida.new(@pam, @fla)
+      partida8.gols_mandante = 3
+      partida8.gols_visitante = 1
+
+      partida9 = Partida.new(@fla, @bgo)
+      partida9.gols_mandante = 4
+      partida9.gols_visitante = 4
+      partida10 = Partida.new(@bgo, @fla)
+      partida10.gols_mandante = 2
+      partida10.gols_visitante = 5
+
+      partida11 = Partida.new(@pam, @bgo)
+      partida11.gols_mandante = 4
+      partida11.gols_visitante = 4
+      partida12 = Partida.new(@bgo, @pam)
+      partida12.gols_mandante = 2
+      partida12.gols_visitante = 2
+
+      @classificacao = @camp.classificacao
+    end
+
+    it "Bahia deve ficar em primeiro lugar" do
+      expect(@classificacao[0].equipe).to eq(@bah)
+      expect(@classificacao[0].pontos).to eq(13)
+    end
+
+    it "Botafogo deve ficar em último lugar" do
+      expect(@classificacao[3].equipe).to eq(@bgo)
+      expect(@classificacao[3].saldo_gols).to eq(-2)
+      expect(@classificacao[3].pontos).to eq(6)
+
+      expect(@classificacao[2].equipe).to eq(@pam)
+      expect(@classificacao[2].saldo_gols).to eq(0)
+      expect(@classificacao[2].pontos).to eq(6)
+    end
+
+    it "Deve imprimir a tabela de classificação" do
+      tabela = "| # | Sigla | Time            | Pontos | Vitorias | Empates | Derrotas | Saldo de Gols | Gols Pro | Gols Contra |\n|---|-------|-----------------|--------|----------|---------|----------|---------------|----------|-------------|\n| 1 |  BAH  | Bahia           | 13     | 4        | 1       | 1        | 5             | 13       | 8           |\n| 2 |  FLA  | Flamengo        | 7      | 2        | 1       | 3        | -3            | 14       | 17          |\n| 3 |  PAM  | Palmeiras       | 6      | 1        | 3       | 2        | 0             | 11       | 11          |\n| 4 |  BFO  | Botafogo        | 6      | 1        | 3       | 2        | -2            | 15       | 17          |\n|---|-------|-----------------|--------|----------|---------|----------|---------------|----------|-------------|\n"
+
+      expect(@camp.imprimir_classificacao).to eq(tabela)
+    end
+  end
 end
