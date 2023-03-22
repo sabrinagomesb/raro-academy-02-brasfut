@@ -322,7 +322,7 @@ RSpec.describe Brasfut do
       partida2.gols_visitante = 0
 
       classificacao = camp.classificacao
-      camp.imprimir_classificacao
+
       expect(classificacao[0].equipe).to eq(bah)
       expect(classificacao[1].equipe).to eq(fla)
     end
