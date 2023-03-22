@@ -77,6 +77,11 @@ class Campeonato
   end
 
   def imprimir_classificao
+    ## estrutura string
+    ## definir pontuação para saldo de gols
+    ## definir função para calcular gols pro e gols contra
+    ## saldo de gols : soma gols_mandantes - gols_visitante
+
     ## Implementar um metodo que retorno uma string
     ## representando a classificacao dos times no seguinte formato
     ## | # | Sigla | Time        | Pontos | Vitorias | Empates | Derrotas | Saldo de Gols | Gols Pro | Gols Contra |
