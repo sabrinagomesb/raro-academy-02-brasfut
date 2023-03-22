@@ -16,14 +16,14 @@ class Campeonato
     end
 
     classificacao.sort do |x, y|
-      if y.pontos != x.pontos
-        y.pontos <=> x.pontos
-      elsif y.vitorias != x.vitorias
-        y.vitorias <=> x.vitorias
-      elsif y.saldo_gols != x.saldo_gols
-        y.saldo_gols <=> x.saldo_gols
-      else
-        y.gols_pro <=> x.gols_pro
+      if y.pontos != x.pontos # se pontos for diferente
+        y.pontos <=> x.pontos               # ordena por pontos
+      elsif y.vitorias != x.vitorias # se vitorias for diferente
+        y.vitorias <=> x.vitorias           # ordena por vitórias
+      elsif y.saldo_gols != x.saldo_gols # se saldo de gols for diferente
+        y.saldo_gols <=> x.saldo_gols       # ordena por por saldo de gols
+      else # senão
+        y.gols_pro <=> x.gols_pro           # ordena por gols feitos
       end
     end
   end
@@ -33,15 +33,11 @@ class Campeonato
     @partidas = []
     @rodadas_turno = []
     @rodadas_returno = []
-
     times = @equipes.dup
-
     # adiciona um time reserva se o número de times por impar
     times << Equipe.new("Reserva", "RES") if times.size.odd?
-
     # quantidade de rodadas = quantidade de times - 1
     numero_rodadas = times.size - 1
-
     # gera as rodadas de ida e volta
     (1..numero_rodadas).each do |rodada|
       rodada_turno = Rodada.new(rodada)
@@ -49,10 +45,8 @@ class Campeonato
 
       rodada_turno.partidas = []
       rodada_returno.partidas = []
-
       # gera as partidas das rodadas de ida e volta
       partidas_por_rodada = times.size / 2
-
       (0..partidas_por_rodada - 1).each do |i|
         mandante = times[i]
         visitante = times[times.size - 1 - i]
@@ -68,7 +62,7 @@ class Campeonato
 
       @rodadas_turno << rodada_turno
       @rodadas_returno << rodada_returno
-
+      # rotatciona a cópia de equipes
       times.insert(1, times.pop)
     end
   end
