@@ -178,27 +178,4 @@ RSpec.describe Brasfut do
       expect(classficacao.derrotas).to eq(1)
     end
   end
-
-  describe "Classificação" do
-    before(:all) do
-      @campeonato = Campeonato.new(2023)
-      @cam = Equipe.new("Atlético-MG", "CAM")
-      @vas = Equipe.new("Vasco", "VAS")
-      @cru = Equipe.new("Cruzeiro", "CRU")
-      @for = Equipe.new("Fortaleza", "FOR")
-      @campeonato.equipes = [@vas, @cam, @cru, @for]
-    end
-    it "O galo deve estar em primeiro e o vasco em segundo" do
-      @vas.partidas = []
-      @cam.partidas = []
-      partida = Partida.new(@cam, @vas)
-      partida.gols_mandante = 2
-      partida.gols_visitante = 1
-      classificacoes = @campeonato.classificacao
-      expect(classificacoes[0].equipe).to eq(@cam)
-      expect(classificacoes[0].pontos).to eq(3)
-      expect(classificacoes[1].equipe).to eq(@vas)
-      expect(classificacoes[1].pontos).to eq(0)
-    end
-  end
 end

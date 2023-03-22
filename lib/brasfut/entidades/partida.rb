@@ -11,15 +11,16 @@ class Partida
   end
 
   def resultado_para(equipe)
-    return "não houve partida" if gols_mandante.nil? || gols_visitante.nil?
-    return "empate" if @gols_mandante == @gols_visitante
+    return "não jogou" if gols_mandante.nil? || gols_visitante.nil?
 
-    if equipe == @mandante
-      return "vitoria" if @gols_mandante > @gols_visitante
-      return "derrota" if @gols_mandante < @gols_visitante
-    elsif equipe == @visitante
-      return "vitoria" if @gols_visitante > @gols_mandante
-      return "derrota" if @gols_visitante < @gols_mandante
+    if gols_mandante == gols_visitante
+      return "empate"
+    elsif (equipe == @mandante && gols_mandante > gols_visitante)
+      return "vitoria"
+    elsif (equipe == @visitante && gols_visitante > gols_mandante)
+      return "vitoria"
+    else
+      return "derrota"
     end
   end
 
@@ -30,20 +31,6 @@ class Partida
       return [@gols_mandante, @gols_visitante]
     elsif equipe == @visitante
       return [@gols_visitante, @gols_mandante]
-    end
-  end
-
-  def quantos_pontos_para(equipe)
-    return 0 if gols_mandante.nil? || gols_visitante.nil?
-
-    if gols_mandante == gols_visitante
-      return 1
-    elsif (equipe == @mandante && gols_mandante > gols_visitante)
-      return 3
-    elsif (equipe == @visitante && gols_visitante > gols_mandante)
-      return 3
-    else
-      return 0
     end
   end
 end
