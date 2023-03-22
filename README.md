@@ -17,12 +17,12 @@ uma vez como mandante e outra como visitante
 
 Implementar um método que retorne uma string
 representando a tabela de jogos no seguinte formato
-RODADA <numero da rodada>
+RODADA < numero da rodada >
 
 CAM X CRU
 VAS X FOR
 
-RODADA <numero da rodada>
+RODADA < numero da rodada >
 
 CAM X CRU
 VAS X FOR
@@ -85,14 +85,16 @@ Depois de clonar o repositório, entre na pasta do projeto:
 
 ```bash
     cd brasfut
+```
 
 Execute o comando abaixo para instalar as dependências:
 
-bash
+```bash
     bundle install
+```
 
 Execute o comando abaixo para rodar os testes:
 
-bash
+```bash
     rspec
 ```
