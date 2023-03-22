@@ -78,7 +78,6 @@ class Campeonato
       end
     end
 
-    puts tabela
     tabela
   end
 
@@ -89,8 +88,6 @@ class Campeonato
       "| #{index + 1} |  #{classificacao.equipe.sigla}  | #{classificacao.equipe.nome.ljust(15)} | #{classificacao.pontos.to_s.ljust(6)} | #{classificacao.vitorias.to_s.ljust(8)} | #{classificacao.empates.to_s.ljust(7)} | #{classificacao.derrotas.to_s.ljust(8)} | #{classificacao.saldo_gols.to_s.ljust(13)} | #{classificacao.gols_pro.to_s.ljust(8)} | #{classificacao.gols_contra.to_s.ljust(11)} |\n"
     end
 
-    tabela = cabecalho + divisoria + dados.join + divisoria
-    puts tabela
-    tabela
+    cabecalho + divisoria + dados.join + divisoria
   end
 end
