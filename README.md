@@ -1,43 +1,97 @@
 # Brasfut
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/brasfut`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Projeto
 
-TODO: Delete this and the text above, and describe your gem
+O projeto de estudo consiste em criar uma aplicação em ruby que gera uma tabela de classificação de um campeonato de futebol. Completar os métodos necessários para que o programa funcione corretamente.
 
-## Installation
+**ENUNCIADO**: Completar os seguintes métodos
 
-Add this line to your application's Gemfile:
+- [x] criar_rodadas!
 
-```ruby
-gem 'brasfut'
+Implementar a geração automática da tabela
+considerando que todos os times devem
+jogar entre sí em turno e returno
+uma vez como mandante e outra como visitante
+
+- [x] imprimir_tabela
+
+Implementar um método que retorne uma string
+representando a tabela de jogos no seguinte formato
+RODADA <numero da rodada>
+
+CAM X CRU
+VAS X FOR
+
+RODADA <numero da rodada>
+
+CAM X CRU
+VAS X FOR
+
+- [x] imprimir_classificacao
+
+Implementar um método que retorno uma string
+representando a classificação dos times no seguinte formato
+| # | Sigla | Time | Pontos | Vitorias | Empates | Derrotas | Saldo de Gols | Gols Pro | Gols Contra |
+|---|-------|-------------|--------|----------|---------|----------|---------------|----------|-------------|
+| 1 | CAM | Atlético-MG | 18 | 3 | 1 | 0 | 20 | 22 | 2 |
+| 2 | VAS | Vasco | 12 | 1 | 3 | 2 | -4 | 4 | 8 |
+Modifique o projeto para ter as informações necessárias para a geração da tabela
+
+### Diagrama
+
+![Diagrama](./.gitlab/diagram.png)
+
+[Código do diagrama](./.gitlab/diagram.txt) feito com [mermaid](https://mermaid.live/)
+
+## Resolução
+
+### Método de gerar tabela
+
+Para gerar uma tabela de jogos automaticamente, precisamos primeiro saber como funciona um campeonato de futebol.
+
+- O número de rodadas necessárias é igual a equipes.size - 1 \* 2 porque cada equipe joga contra todas as outras equipes uma vez como mandante e uma vez como visitante.
+
+- Cada rodada deve ter equipes.size / 2 partidas. Por exemplo, se o campeonato tiver 4 equipes, cada rodada terá 2 partidas.
+
+- Para gerar as partidas para cada rodada, podemos usar um algoritmo chamado Round-Robin.
+
+  - Dividir as equipes em duas metades: mandantes e visitantes.
+  - Para cada rodada, gerar as partidas fazendo a combinação de equipes mandantes e visitantes
+  - Na primeira rodada, as equipes da metade dos mandantes jogam em casa.
+  - Nas rodadas seguintes, as equipes da metade dos visitantes jogam em casa.
+  - Cada equipe joga uma vez como mandante e outra como visitante.
+
+Algumas considerações:
+
+- Se o número de equipes for ímpar, entra uma equipe reserva, para que as rodadas sejam geradas corretamente.
+- A `linha times.insert(1, times.pop)` do método `criar_tabela!` é responsável por rotacionar a lista de times para gerar novos jogos. Basicamente, ela remove o último elemento da lista times (com o método pop) e o adiciona na segunda posição da lista (com o método insert), deslocando todos os elementos anteriores para uma posição adiante. Dessa forma, a cada rodada é gerada uma nova ordem de jogos, garantindo que todos os times joguem contra todos os outros times da competição.
+
+### Método de imprimir tabela
+
+Para imprimir a tabela de jogos, basta percorrer a lista de rodadas e imprimir cada partida, exibindo as siglas de cada time.
+
+![Tabela de classificação](./.gitlab/tabela-01.png)
+
+### Método de imprimir classificação
+
+Para imprimir a classificação, basta ordenar a lista de classificações por pontos, e os critérios posteriores de desempate são: vitórias, saldo de gols e gols marcados.
+
+![Tabela de classificação](./.gitlab/tabela-02.png)
+
+## Instalação
+
+Depois de clonar o repositório, entre na pasta do projeto:
+
+```bash
+    cd brasfut
+
+Execute o comando abaixo para instalar as dependências:
+
+bash
+    bundle install
+
+Execute o comando abaixo para rodar os testes:
+
+bash
+    rspec
 ```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install brasfut
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/brasfut. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/brasfut/blob/main/CODE_OF_CONDUCT.md).
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Brasfut project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/brasfut/blob/main/CODE_OF_CONDUCT.md).

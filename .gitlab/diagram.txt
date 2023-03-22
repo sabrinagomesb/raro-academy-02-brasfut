@@ -1,0 +1,57 @@
+classDiagram
+
+    Campeonato "1"-->"*" Equipe
+    Campeonato "1"-->"*" Rodada
+    Campeonato "1"-->"1" Classificacao
+    Campeonato "1"-->"*" Partida
+    Partida "1"-->"1" Equipe
+    Partida "1"-->"1" Equipe
+    Rodada "1"-->"*" Partida
+    Classificacao "1"--"1" Equipe
+
+
+    class Classificacao {
+        +Equipe:equipe
+        +integer:gols_pros
+        +integer:gols_contra
+        +integer:vitorias
+        +integer:derrotas
+        +integer:empates
+        integer:pontos
+        integer:saldo_gols
+    }
+
+    class Campeonato{
+        +integer:edicao
+        Equipe[]:equipes
+        Partida[]:partidas
+        Rodada[]:rodadas_turno
+        Rodada[]:rodadas_returno
+        Classificacao[] classificacao()
+        criar_tabela!()
+        imprimir_tabela()
+        imprimir_classificacao()
+    }
+
+    class Equipe{
+        +string:nome
+        +string:sigla
+        +Campeonato:campeonato
+        Partida[]:partidas
+        Classificacao classificacao()
+    }
+
+    class Partida{
+        +Equipe:mandante
+        +Equipe:visitante
+        integer:gols_mandante
+        integer:gols_visitante
+
+        integer[] resultado_para(Equipe:equipe)
+        string saldo_gols_para(Equipe:equipe)
+    }
+
+    class Rodada {
+        +integer:numero
+        Partida[]:partidas
+    }
